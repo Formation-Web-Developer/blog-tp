@@ -3,7 +3,7 @@
 require('inc/functions.php');
 
 
-
+$title= 'Accueil - MonBlog.fr';
 include('inc/header.php');
 
 
