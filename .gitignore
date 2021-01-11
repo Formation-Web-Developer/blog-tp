@@ -17,3 +17,5 @@ vendor/
 *.sln
 
 composer.phar
+
+inc/database.php
