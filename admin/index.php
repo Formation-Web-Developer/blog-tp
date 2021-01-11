@@ -19,7 +19,7 @@ include('inc/header.php');
                         <h3><?=$article['title']?></h3>
                         <p class="description"><?=$article['description']?></p>
                         <div class="misc">
-                            <p class="misc-date">De <span class="misc-author"><?=$article['description']?>></span> le <?=date("d/M/Y à H:i", strtotime($published ? $article['published_at'] : $article['created_at']))?></p>
+                            <p class="misc-date">De <span class="misc-author"><?=$article['author']?>></span> le <?=date("d/M/Y à H:i", strtotime($published ? $article['published_at'] : $article['created_at']))?></p>
                             <div class="article-footer">
                                 <p class="misc-state"><i class="fas fa-circle <?=$published ? 'publish' : 'draft'?>"></i> <?=$published ? 'Publié' : 'Brouillon'?></p>
                                 <a href="#" class="btn btn-primary">Modifier</a>
