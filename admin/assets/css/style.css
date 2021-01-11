@@ -16,6 +16,11 @@ input, textarea, select {
     font-family: 'Roboto', sans-serif;
     outline: none;
     width: 100%;
+    padding: .5rem;
+}
+
+input[type=submit] {
+    cursor: pointer;
 }
 
 a {
@@ -103,7 +108,7 @@ header.header .title a{
     padding: .7rem;
 }
 
-#articles h2 {
+section h2 {
     padding: 1rem 0;
     font-weight: 500;
 }
@@ -160,6 +165,11 @@ header.header .title a{
 
 #articles .articles .article .misc .misc-state .draft {
     color: #ffc334;
+}
+
+#newArticle input:not(:last-child),
+#newArticle textarea:not(:last-child){
+    margin-bottom: .7rem;
 }
 
 @media (min-width: 576px) {
