@@ -1,6 +1,7 @@
 <?php
 
 require('inc/functions.php');
+require('inc/database.php');
 
 
 $title= 'Accueil - MonBlog.fr';
