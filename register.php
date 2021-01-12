@@ -45,7 +45,7 @@ include('inc/header.php');?>
 <?php if($success){ ?>
 <p class="success">Vos données sont envoyées avec success</p>
 <?php }else { ?>
-<h1>Veuillez vous inscrir</h1>
+<h2>Veuillez vous inscrir</h2>
 <form action="" method="POST">
     
     <label for="pseudo">Pseudo</label>

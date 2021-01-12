@@ -91,3 +91,32 @@ footer{
     margin-top: 1rem;
     color:  rgb(141, 35, 35);
 }
+.wrap2{
+    display: grid;
+    background-color: rgb(223, 151, 43);
+    width: auto;
+    text-align: center;
+    color: aliceblue;
+    padding: 3rem;
+}
+label{
+    color: aliceblue;
+    font-size: large;
+}
+.noms{
+    height: 2rem;
+    width: 20rem;
+    border-radius: 3% 3%;
+
+}
+form{
+    display: grid;
+    align-content: center;
+    margin: auto;
+    margin-bottom: 2rem;
+}
+.button{
+    margin-top: 2rem;
+    padding: 1rem;
+    font-size: large;
+}
