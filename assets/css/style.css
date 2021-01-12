@@ -9,6 +9,12 @@
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.ulnav{
+    display: flex;
+}
+.ulnav li{
+    padding: 1rem;
+}
 .wrap{
     width: 25%;
     margin: 2rem;
@@ -17,22 +23,29 @@
 }
 header{
     background-color: rgb(141, 76, 24);
-    height: 200px;
+    
     
 }
 .img{
     width: 15rem;
-    padding: 1rem;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
 }
-h1, .top-img, .top-title{
+h1, .top-title{
      width: 50%;  
     color: aliceblue;
+    margin-bottom: 1rem;
   
+}
+.top-img{
+    width: 25%;  
+    
 }
 .top{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding-bottom: 2rem;
     
 }
 .h2{

@@ -10,17 +10,22 @@
 <body>
     <header>
         <nav>
-        <ul>
-            <li><a href="index.php">Accueil</a></li>  
-            <li><a href="login.php">Se connecter</a></li>  
-            <li><a href="register.php">Inscription</a></li>               
+        <ul class="ulnav">
+            <li><a href="index.php">Accueil</a></li>
+            <?php if(!empty($_SESSION['id'])){ ?>
+                <li><a href="disconnect.php">Se déconnecter</a></li>
+            <?php }else{ ?>
+                <li><a href="login.php">Se connecter</a></li>
+                <li><a href="register.php">Inscription</a></li>
+            <?php } ?>
+                           
         </ul>
       
             
         </nav>
         <div class="top">
              <div class="top-img">
-                 <img class="img" src="assets/img/w630.jpg" alt="">
+                 <img class="img" src="assets/img/63.jpg" alt="">
              </div>   
              <div class="top-title">
                <h1>MON AFRIQUE</h1>
