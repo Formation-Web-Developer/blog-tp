@@ -34,7 +34,7 @@
     include 'inc/header.php';
 ?>
     <div class="container">
-        <h1>Espace de connexion</h1>
+        <h2 class="titleconnect">Espace de connexion</h2>
 
         <?php if(isset($error)) { ?>
             <div class="bagde badge-danger">

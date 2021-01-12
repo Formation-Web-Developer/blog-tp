@@ -29,17 +29,18 @@ header{
 }
 .img{
     width: 18rem;
-    padding-left: 1rem;
-    margin-bottom: 1rem;
+    
+    
 }
 h1, .top-title{
      width: 50%;  
-    color: aliceblue;
-    margin-bottom: 1rem;
-  
+    color: rgb(227, 233, 151);
+    margin-bottom: 1rem;  
 }
+
 .top-img{
-    width: 25%;  
+    width: 20%; 
+
     
 }
 .top{
@@ -51,11 +52,11 @@ h1, .top-title{
 }
 .h2{
     margin-top: 2rem;
-    color: aliceblue;
+    color: rgb(227, 233, 151);
 }
 a{
     text-decoration: none;
-    color: aliceblue;
+    color: rgb(227, 233, 151);
 }
 .voir{
     background-color: rgb(141, 76, 24);
@@ -80,8 +81,8 @@ a{
     margin-bottom: auto;
 }
 footer{
-    background-color: rgb(204, 97, 25);
-   color: aliceblue;
+    background-color: rgb(141, 76, 24);
+   color:rgb(227, 233, 151);
    width: auto;
    height: 100px;
    text-align: center;
@@ -105,13 +106,22 @@ footer{
     margin-top: 1rem;
     color:  rgb(141, 35, 35);
 }
-.wrap2{
+.wrap2, .container{
     display: grid;
     background-color: rgb(223, 151, 43);
     width: auto;
     text-align: center;
     color: aliceblue;
     padding: 3rem;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+.form-group input, .form-group label{
+    height: 2rem;
+    width: 20rem;
+    border-radius: 3% 3%;
 }
 label{
     color: aliceblue;
@@ -124,7 +134,8 @@ label{
 
 }
 form{
-    display: grid;
+    display: flex;
+    flex-direction: column;
     align-content: center;
     margin: auto;
     margin-bottom: 2rem;
@@ -137,4 +148,7 @@ form{
 .footerdiv{
     padding-top: 1rem;
     
+}
+.form-group{
+    margin-top: 1rem;
 }
