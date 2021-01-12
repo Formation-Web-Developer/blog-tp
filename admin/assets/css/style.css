@@ -7,13 +7,14 @@
 }
 
 body {
-    font: 400 16px/1.3 'Roboto', sans-serif;
     background-color: #cbcbcb;
 }
 
+body, input, textarea, select {
+    font: 400 16px/1.3 'Roboto', sans-serif;
+}
 
 input, textarea, select {
-    font-family: 'Roboto', sans-serif;
     outline: none;
     width: 100%;
     padding: .5rem;
@@ -114,6 +115,10 @@ section h2 {
 }
 
 #articles .articles .article {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     box-shadow: 0 0 10px 5px #a0a0a0;
     margin: 1rem 0;
     padding: .7rem;
@@ -134,13 +139,7 @@ section h2 {
     padding: .7rem 0;
 }
 
-#articles .articles .article .misc {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#articles .articles .article .misc .misc-date{
+#articles .articles .article .misc{
     color: #a0a0a0;
     font-style: italic;
 }
@@ -154,16 +153,16 @@ section h2 {
     color: #4db558;
 }
 
-#articles .articles .article .misc .article-footer p:not(:last-child),
-#articles .articles .article .misc .article-footer a:not(:last-child){
+#articles .articles .article .article-footer p:not(:last-child),
+#articles .articles .article .article-footer a:not(:last-child){
     margin-right: .7rem;
 }
 
-#articles .articles .article .misc .misc-state .publish {
+#articles .articles .article .misc-state .publish {
     color: #4444ff;
 }
 
-#articles .articles .article .misc .misc-state .draft {
+#articles .articles .article .misc-state .draft {
     color: #ffc334;
 }
 

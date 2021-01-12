@@ -10,6 +10,7 @@
     <title><?=$title?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="<?=$urlBase?>assets/css/style.css">
+    <script type="application/javascript" src="<?=$urlBase?>assets/js/app.js"></script>
 </head>
 <body>
     <header class="header">
@@ -18,5 +19,5 @@
                 <li class="menu-item"><a href="/"><i class="fas fa-arrow-left"></i> Revenir sur le site</a></li>
             </ul>
         </nav>
-        <h1 class="title"><a href="index.php">Administration de MonBlog.fr</a></h1>
+        <h1 class="title"><a href="<?=$urlBase?>">Administration de MonBlog.fr</a></h1>
     </header>
