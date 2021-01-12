@@ -14,6 +14,7 @@
 }
 .ulnav li{
     padding: 1rem;
+    display: inline-block;
 }
 .wrap{
     width: 25%;
@@ -27,7 +28,7 @@ header{
     
 }
 .img{
-    width: 15rem;
+    width: 18rem;
     padding-left: 1rem;
     margin-bottom: 1rem;
 }
