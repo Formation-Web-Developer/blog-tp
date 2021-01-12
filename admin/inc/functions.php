@@ -122,8 +122,7 @@ function buildInput(string $text, string $label, string $type, string $id, array
 <?php }
 
 function buildTextAreaByArray(array $array, string $label, string $id, int $rows, array $errors){
-    buildTextArea(!empty($errors[$id]) ? $errors[$id] : '', $label, $id, $rows, $errors);
-
+    buildTextArea(getValueByArray($array, $id), $label, $id, $rows, $errors);
 }
 
 function buildTextArea(string $text, string $label, string $id, int $rows, array $errors){ ?>
