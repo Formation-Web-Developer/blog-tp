@@ -3,9 +3,87 @@
     margin: 0;
     box-sizing: border-box;
 }
+#all{
+    display: flex;
+    background-color: rgb(223, 151, 43);
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
 .wrap{
-    background-image: url('../img/w630.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: auto;
+    width: 25%;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+header{
+    background-color: rgb(141, 76, 24);
+    height: 200px;
+    
+}
+.img{
+    width: 15rem;
+    padding: 1rem;
+}
+h1, .top-img, .top-title{
+     width: 50%;  
+    color: aliceblue;
+  
+}
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+.h2{
+    margin-top: 2rem;
+    color: aliceblue;
+}
+a{
+    text-decoration: none;
+    color: aliceblue;
+}
+.voir{
+    background-color: rgb(141, 76, 24);
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5%;
+    margin-top: auto;
+}
+.wrap1{
+    background-color: rgb(223, 151, 43);
+    padding: 3rem;
+    width: 100%;
+    
+}
+.brown{
+    color: rgb(141, 35, 35);
+}
+.article{
+    padding-top: 2rem;
+    
+    height: 10rem;
+    margin-bottom: auto;
+}
+footer{
+    background-color: rgb(27, 88, 32);
+    
+}
+.h2-2{
+    text-align: center;
+    color: aliceblue;
+    margin-bottom: 1rem;
+}
+.content{
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+}
+.author{
+    margin-bottom: 1rem;
+    color:  rgb(141, 35, 35);
+}
+.date{
+    margin-top: 1rem;
+    color:  rgb(141, 35, 35);
 }

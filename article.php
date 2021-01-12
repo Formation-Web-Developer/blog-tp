@@ -22,13 +22,16 @@ if(empty($article)){
     die('404');
 }
 ?>
-<div class="wrap">
-    
-        <h2> <?= $article['title'];?></h2>
-        <p>Auteur: <?= $article['author'];?></p>        
+<div class="wrap1">
+        <div class="content">
+        <h2 class="h2-2"> <?= $article['title'];?></h2>
+        <p class="author">Par: <?= $article['author'];?></p>  
         <p> Déscription: <?= $article['description'].'<br>'.$article['content'];?></p>      
-
-        <p> Date de creation: <?= date("Y/m/d à H:i", strtotime($article['published_at']));?></p>        
+        <p class="date">  Publié le: <?= date("Y/m/d à H:i", strtotime($article['published_at']));?></p>
+        </div>
+        
+             
+                
 
 </div>
     <?php
