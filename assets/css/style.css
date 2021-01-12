@@ -3,3 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
+.wrap{
+    background-image: url('../img/w630.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: auto;
+}
