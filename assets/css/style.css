@@ -11,6 +11,8 @@
 }
 .ulnav{
     display: flex;
+    margin-left: 7rem;
+    font-size: large;
 }
 .ulnav li{
     padding: 1rem;

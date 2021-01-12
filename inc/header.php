@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=$title?></title>
     <link rel="stylesheet" href="assets/css/style.css">
+    
 
 </head>
 <body>
     <header>
         <nav>
         <ul class="ulnav">
-            <li><a href="index.php">Accueil</a></li>
+            <li><a href="index.php"><img src="https://img.icons8.com/ios-filled/32/000000/leopard.png"/> Accueil</a></li>
             <?php if(!empty($_SESSION['id'])){ ?>
-                <li><a href="disconnect.php">Se déconnecter</a></li>
+                <li><a href="disconnect.php"><img src="https://img.icons8.com/ios-filled/32/000000/lion.png"/> Se déconnecter</a></li>
             <?php }else{ ?>
-                <li><a href="login.php">Se connecter</a></li>
-                <li><a href="register.php">Inscription</a></li>
+                <li><a href="login.php"><img src="https://img.icons8.com/ios-filled/32/000000/lemur.png"/> Se connecter</a></li>
+                <li><a href="register.php"><img src="https://img.icons8.com/ios-glyphs/32/000000/elephant.png"/> Inscription</a></li>
             <?php } ?>
                            
         </ul>
