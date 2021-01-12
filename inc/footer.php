@@ -2,7 +2,7 @@
 <footer>
 <div>
 <hr>
-<p>Footer</p>
+<p>Crée par: Alan Vion & Irina Laporte</p>
 </div>
     
 </footer>

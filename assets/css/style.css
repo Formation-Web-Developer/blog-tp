@@ -67,7 +67,11 @@ a{
 }
 footer{
     background-color: rgb(27, 88, 32);
-    
+   color: aliceblue;
+   width: auto;
+   height: 100px;
+   text-align: center;
+   align-items: center;
 }
 .h2-2{
     text-align: center;
