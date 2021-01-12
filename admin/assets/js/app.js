@@ -1,8 +1,7 @@
 /**
- * @param {string} title
  * @return {boolean}
  */
-function confirmDeleteArticle(title)
+function confirmDeleteArticle()
 {
-    return confirm('Souhaitez-vous vraiment supprimer l\'article "'+title+'"')
+    return confirm('Souhaitez-vous vraiment supprimer cet article ?');
 }
