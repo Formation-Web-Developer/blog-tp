@@ -11,7 +11,7 @@ function getAllArticlesByStatus($pdo, $visibility = 1)
     $sql = "SELECT * FROM articles WHERE visibility = $visibility ORDER BY published_at DESC";
     $querry = $pdo->prepare($sql);
     $querry->execute();
-    return $querry->fetchAll();    
+    return $querry->fetchAll();
 }
 function mistake($text, $min, $max, $key, $errors)
 {
@@ -31,5 +31,14 @@ function checkPass($errors, $password, $confirmPass, $key){
         $errors[$key] = 'les mots de passe ne sont pas identiques';
     }
     return $errors;
+}
+
+function createToken($range) {
+    $token = '';
+    $charList = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
+    for($i = 0; $i < $range; $i++) {
+        $token .= $charList[rand()%mb_strlen($charList)];
+    }
+    return $token;
 }
 
