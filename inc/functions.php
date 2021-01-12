@@ -34,6 +34,9 @@ function checkPass($errors, $password, $confirmPass, $key){
     }
     return $errors;
 }
+function isConnected(){
+    return !empty($_SESSION['id']);
+}
 
 function createToken($range) {
     $token = '';

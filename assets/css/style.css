@@ -13,7 +13,7 @@
 }
 .ulnav{
     display: flex;
-    margin-left: 7rem;
+    margin-left: 5rem;
     font-size: large;
 }
 .ulnav li{
@@ -37,11 +37,12 @@ header{
     
 }
 h1, .top-title{
-     width: 50%;  
+     width: 60%;  
     color: rgb(227, 233, 151);
     margin-bottom: 1rem; 
     font-family: 'Big Shoulders Stencil Text', cursive;
     font-weight: 800;
+    font-size: 1.5rem;
     
     
 }
@@ -121,7 +122,7 @@ footer{
     margin-top: 1rem;
     color:  rgb(141, 35, 35);
 }
-.wrap2, .container{
+.wrap2, .container, .user{
     display: grid;
     background-color: rgb(223, 151, 43);
     width: auto;
