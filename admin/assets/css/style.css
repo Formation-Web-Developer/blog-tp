@@ -96,6 +96,16 @@ header.header .title a{
     color: #ff4747;
 }
 
+.badge {
+    padding: 1rem;
+    color: white;
+    border-radius: .3rem;
+}
+
+.badge-success {
+    background-color: #1e9423;
+}
+
 .container {
     background-color: #ffffff;
     box-shadow: 0 0 10px 5px #a0a0a0;

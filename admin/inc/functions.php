@@ -24,6 +24,13 @@ function newArticle(PDO $pdo, string $author, string $title, string $description
     $query->execute();
 }
 
+function deleteArticle(PDO $pdo, int $id): bool
+{
+    $query = $pdo -> prepare('DELETE FROM articles WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    return $query->execute();
+}
+
 function getValueByArray(array $array, string $key, string $defaultValue = '') {
     return !empty($array[$key]) ? $array[$key] : $defaultValue;
 }

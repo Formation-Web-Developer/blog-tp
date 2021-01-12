@@ -3,12 +3,25 @@
 require '../inc/database.php';
 require 'inc/functions.php';
 
+if(!empty($_POST['deleted']) && !empty($_POST['id']) && is_numeric($_POST['id']))
+{
+    $deleted = deleteArticle($pdo, intval($_POST['id']));
+}
+
 $articles = getArticles($pdo);
 
 include('inc/header.php');
 
 ?>
     <div class="container">
+
+        <?php
+        if( isset($deleted) ) { ?>
+            <div class="badge badge-success">
+                L'article a bien été supprimé !
+            </div>
+        <?php } ?>
+
         <section id="articles">
             <h2>Liste des articles</h2>
             <a href="articles/new.php" class="btn btn-success add">Ajouter un article</a>
