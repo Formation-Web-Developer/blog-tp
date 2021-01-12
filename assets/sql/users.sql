@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mar. 12 jan. 2021 à 11:00
+-- Généré le : mar. 12 jan. 2021 à 11:04
 -- Version du serveur :  10.4.13-MariaDB
 -- Version de PHP : 7.4.11
 
@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `avatar` varchar(255) DEFAULT NULL,
   `token_verified` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `pseudo` (`pseudo`,`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 COMMIT;
 
