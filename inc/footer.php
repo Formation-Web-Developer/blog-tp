@@ -1,7 +1,7 @@
 </div>
 <footer>
-<div>
-<hr>
+<div class="footerdiv">
+
 <p>Crée par: Alan Vion & Irina Laporte</p>
 </div>
     

@@ -66,7 +66,7 @@ a{
     margin-bottom: auto;
 }
 footer{
-    background-color: rgb(27, 88, 32);
+    background-color: rgb(204, 97, 25);
    color: aliceblue;
    width: auto;
    height: 100px;
@@ -119,4 +119,8 @@ form{
     margin-top: 2rem;
     padding: 1rem;
     font-size: large;
+}
+.footerdiv{
+    padding-top: 1rem;
+    
 }

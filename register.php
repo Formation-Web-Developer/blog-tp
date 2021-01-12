@@ -1,5 +1,12 @@
 
 <?php
+session_start();
+
+if(!empty($_SESSION['id'])) {
+    header('Location: index.php');
+    exit;
+}
+
 require('inc/functions.php');
 require('inc/database.php');
 $errors = array();
@@ -33,7 +40,7 @@ if(!empty($_POST['submitted'])){
 
     $query->execute();
     $success = true;
-    die();
+    
     }
 
 }
