@@ -177,7 +177,12 @@ section h2 {
 }
 
 #newArticle input:not(:last-child),
-#newArticle textarea:not(:last-child){
+#editArticle input:not(:last-child),
+#newArticle textarea:not(:last-child),
+#editArticle textarea:not(:last-child),
+#newArticle select:not(:last-child),
+#editArticle select:not(:last-child)
+{
     margin-bottom: .7rem;
 }
 

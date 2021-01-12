@@ -37,7 +37,7 @@ include('inc/header.php');
 
                         <div class="article-footer">
                             <p class="misc-state"><i class="fas fa-circle <?=$published ? 'publish' : 'draft'?>"></i> <?=$published ? 'Publié' : 'Brouillon'?></p>
-                            <a href="#" class="btn btn-primary">Modifier</a>
+                            <a href="articles/edit.php?id=<?=$article['id']?>" class="btn btn-primary">Modifier</a>
                             <form action="" method="post" onsubmit="return confirmDeleteArticle('<?=$article['title']?>')">
                                 <input type="hidden" name="id" value="<?=$article['id']?>">
                                 <input type="submit" class="btn btn-danger" value="Supprimer" name="deleted" />

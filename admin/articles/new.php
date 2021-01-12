@@ -37,7 +37,7 @@
                     buildInputByArray($_POST, 'Titre *', 'text', 'title', $errors);
                     buildInputByArray($_POST, 'Auteur *', 'text', 'author', $errors);
                     buildInputByArray($_POST, 'Description *', 'text', 'description', $errors);
-                    buildTextArea($_POST, 'Contenu *', 'content', 10, $errors);
+                    buildTextAreaByArray($_POST, 'Contenu *', 'content', 10, $errors);
                 ?>
                 <input type="submit" name="submitted" value="Ajouter">
             </form>
