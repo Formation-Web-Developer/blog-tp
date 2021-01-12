@@ -1,7 +1,17 @@
 <?php
 
-require '../inc/database.php';
+session_start();
+
 require 'inc/functions.php';
+require '../inc/roles.php';
+
+if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR, MODERATOR)){
+    header('Location: ../login.php');
+    exit;
+}
+
+require '../inc/database.php';
+
 
 if(!empty($_POST['deleted']) && !empty($_POST['id']) && is_numeric($_POST['id']))
 {

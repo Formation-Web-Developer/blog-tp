@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@900&display=swap');
+
 *, *:before,*:after{
     padding: 0;
     margin: 0;
@@ -37,7 +39,14 @@ header{
 h1, .top-title{
      width: 50%;  
     color: rgb(227, 233, 151);
-    margin-bottom: 1rem;  
+    margin-bottom: 1rem; 
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    font-weight: 800;
+    
+    
+}
+h1{
+    font-size: 4rem;
 }
 
 .top-img{
@@ -55,6 +64,8 @@ h1, .top-title{
 .h2{
     margin-top: 2rem;
     color: rgb(227, 233, 151);
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    font-weight: 800;
 }
 a{
     text-decoration: none;
@@ -94,6 +105,8 @@ footer{
     text-align: center;
     color: aliceblue;
     margin-bottom: 1rem;
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    font-weight: 800;
 }
 .content{
     width: 80%;
