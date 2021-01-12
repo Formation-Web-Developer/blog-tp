@@ -39,7 +39,7 @@
 
         if(empty($errors))
         {
-            $edit = editArticle($pdo, $article['id'], $author, $title, $description, $content, $visibility, $article['published_at'] != null && $visibility == 1);
+            $edit = editArticle($pdo, $article['id'], $author, $title, $description, $content, $visibility, $article['published_at'] == null && $visibility == 1);
         }
     }
 
