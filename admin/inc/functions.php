@@ -180,3 +180,7 @@ function buildPagination($count, $currentPage, $limit, $range = 3, $url='/?') {
 function buildButtonPage($url, $index, $selected) { ?>
     <a href="<?=$url?>"<?=$selected ? 'class="active"' : ''?>><?=$index?></a>
 <?php }
+
+function generateToken(int $range): string{
+    return OAuthProvider::generateToken($range);
+}
