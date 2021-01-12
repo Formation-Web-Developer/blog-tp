@@ -17,7 +17,7 @@
         checkLengthTextValid($title, 5, 255, $errors, 'title');
         checkLengthTextValid($author, 4, 50, $errors, 'author');
         checkLengthTextValid($description, 10, 255, $errors, 'description');
-        checkLengthTextValid($content, 10, 99_999_999_999, $errors, 'content');
+        checkLengthTextValid($content, 10, 99999999999, $errors, 'content');
 
         if(empty($errors))
         {
