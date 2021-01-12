@@ -193,3 +193,8 @@ function getUser(PDO $pdo, string $email, string $password)
     $query->execute();
     return $query->fetch();
 }
+
+function isConnected(): bool
+{
+    return !empty($_SESSION['id']);
+}

@@ -1,4 +1,6 @@
 <?php
+require 'inc/roles.php';
+
 function debug($tableau)
 {
     echo '<pre>';
