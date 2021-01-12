@@ -24,8 +24,39 @@ function newArticle(PDO $pdo, string $author, string $title, string $description
     $query->execute();
 }
 
+function deleteArticle(PDO $pdo, int $id): bool
+{
+    $query = $pdo -> prepare('DELETE FROM articles WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    return $query->execute();
+}
+
+function getArticleById(PDO  $pdo, int $id): array
+{
+    $query = $pdo->prepare('SELECT * FROM articles WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetch();
+}
+
+function editArticle(PDO $pdo, int $id, string $author, string $title, string $description, string $content, int $visibility, bool $published): bool
+{
+    $sql = 'UPDATE articles SET title=:title,author=:author,description=:description,content=:content,visibility=:visibility,modified_at=NOW()';
+    if($published) {
+        $sql.=',published_at=NOW()';
+    }
+    $query = $pdo->prepare($sql.' WHERE id=:id');
+    $query->bindValue(':title', $title);
+    $query->bindValue(':author', $author);
+    $query->bindValue(':description', $description);
+    $query->bindValue(':content', $content);
+    $query->bindValue(':visibility', $visibility, PDO::PARAM_INT);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+
+    return $query->execute();
+}
 function getValueByArray(array $array, string $key, string $defaultValue = '') {
-    return !empty($array[$key]) ? $array[$key] : $defaultValue;
+    return isset($array[$key]) ? $array[$key] : $defaultValue;
 }
 
 function secureTextByArray(array $array, string $key): string
@@ -73,7 +104,7 @@ function checkEmailValid(string $text, array &$errors, string $key): void
 
 function checkValueSelect(array $array, string $value, array &$errors, string $key): void
 {
-    if(empty($value) || empty($array[$value])) {
+    if((empty($value) && !is_numeric($value)) || empty($array[$value])) {
         $errors[$key] = 'Veuillez renseigner ce champs !';
     }
 }
@@ -90,10 +121,15 @@ function buildInput(string $text, string $label, string $type, string $id, array
     </div>
 <?php }
 
-function buildTextArea(array $array, string $label, string $id, int $rows, array $errors){ ?>
+function buildTextAreaByArray(array $array, string $label, string $id, int $rows, array $errors){
+    buildTextArea(!empty($errors[$id]) ? $errors[$id] : '', $label, $id, $rows, $errors);
+
+}
+
+function buildTextArea(string $text, string $label, string $id, int $rows, array $errors){ ?>
     <div class="form-group">
         <label for="<?=$id?>"><?=$label?></label>
-        <textarea name="<?=$id?>" id="<?=$id?>" rows="<?=$rows?>"<?= !empty($errors[$id]) ? ' class="error"' : '' ?>><?= !empty($array[$id]) ? $array[$id] : '' ?></textarea>
+        <textarea name="<?=$id?>" id="<?=$id?>" rows="<?=$rows?>"<?= !empty($errors[$id]) ? ' class="error"' : '' ?>><?=$text?></textarea>
         <span class="error"><?= !empty($errors[$id]) ? $errors[$id] : '' ?></span>
     </div>
 <?php }
