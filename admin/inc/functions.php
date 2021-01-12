@@ -184,3 +184,12 @@ function buildButtonPage($url, $index, $selected) { ?>
 function generateToken(int $range): string{
     return OAuthProvider::generateToken($range);
 }
+
+function getUser(PDO $pdo, string $email, string $password)
+{
+    $query = $pdo->prepare('SELECT * FROM users WHERE email=:email AND password=:password');
+    $query->bindValue(':email', $email);
+    $query->bindValue(':password', $password);
+    $query->execute();
+    return $query->fetch();
+}
