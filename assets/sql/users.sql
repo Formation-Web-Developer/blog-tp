@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : mar. 12 jan. 2021 à 11:04
+-- Généré le : mer. 13 jan. 2021 à 14:54
 -- Version du serveur :  10.4.13-MariaDB
 -- Version de PHP : 7.4.11
 
@@ -32,13 +32,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` text NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `token_verified` varchar(255) DEFAULT NULL,
+  `role` varchar(50) NOT NULL DEFAULT 'MEMBER',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `pseudo` (`pseudo`,`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
