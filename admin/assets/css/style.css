@@ -115,7 +115,7 @@ header.header .title a{
 }
 
 
-#articles {
+#articles, #comments {
     padding: .7rem;
 }
 
@@ -124,7 +124,8 @@ section h2 {
     font-weight: 500;
 }
 
-#articles .articles .article {
+#articles .articles .article,
+#comments .comments .comment{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -139,32 +140,39 @@ section h2 {
     margin-left: auto;
 }
 
-#articles .articles .article .author {
+#articles .articles .article .author,
+#comments .comments .comment .author{
     padding: .5rem 0;
     color: #a0a0a0;
     font-style: italic;
 }
 
-#articles .articles .article .description {
+#articles .articles .article .description,
+#comments .comments .comment .description {
     padding: .7rem 0;
 }
 
-#articles .articles .article .misc{
+#articles .articles .article .misc,
+#comments .comments .comment .misc{
     color: #a0a0a0;
     font-style: italic;
 }
 
-#articles .articles .article .article-footer {
+#articles .articles .article .article-footer,
+#comments .comments .comment .comment-footer{
     display: flex;
     align-items: center;
 }
 
-#articles .articles .article .misc .misc-author {
+#articles .articles .article .misc .misc-author,
+#comments .comments .comment .misc .misc-author{
     color: #4db558;
 }
 
 #articles .articles .article .article-footer p:not(:last-child),
-#articles .articles .article .article-footer a:not(:last-child){
+#articles .articles .article .article-footer a:not(:last-child),
+
+#comments .comments .comment .comment-footer form:not(:last-child) input{
     margin-right: .7rem;
 }
 

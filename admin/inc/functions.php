@@ -10,7 +10,7 @@ function debug(array $array)
 
 function getArticles(PDO $pdo)
 {
-    $query = $pdo -> prepare('SELECT * FROM articles ORDER BY created_at DESC');
+    $query = $pdo -> prepare('SELECT articles.*, users.pseudo FROM articles INNER JOIN users ON users.id = articles.author ORDER BY created_at DESC');
     $query->execute();
     return $query->fetchAll();
 }
@@ -34,7 +34,7 @@ function deleteArticle(PDO $pdo, int $id): bool
 
 function getArticleById(PDO  $pdo, int $id): array
 {
-    $query = $pdo->prepare('SELECT * FROM articles WHERE id=:id');
+    $query = $pdo->prepare('SELECT articles.*, users.pseudo FROM articles INNER JOIN users ON users.id = articles.author WHERE id=:id');
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetch();
@@ -55,6 +55,13 @@ function editArticle(PDO $pdo, int $id, string $title, string $description, stri
 
     return $query->execute();
 }
+
+function getWaitingComments(PDO $pdo): array {
+    $query = $pdo->prepare('SELECT comments.*,users.pseudo,articles.title FROM comments INNER JOIN users ON users.id = comments.user INNER JOIN articles ON articles.id = comments.article WHERE state=0 ORDER BY created_at ASC');
+    $query->execute();
+    return $query->fetchAll();
+}
+
 function getValueByArray(array $array, string $key, string $defaultValue = '') {
     return isset($array[$key]) ? $array[$key] : $defaultValue;
 }
@@ -212,4 +219,18 @@ function isConnected(): bool
 function passwordVerify($password, $hash): bool
 {
     return password_verify($password, $hash);
+}
+
+function validComment(PDO $pdo, int $id)
+{
+    $query = $pdo->prepare('UPDATE comments SET state=1 WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+}
+
+function deleteComment(PDO $pdo, int $id)
+{
+    $query = $pdo->prepare('DELETE FROM comments WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
 }
