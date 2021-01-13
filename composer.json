@@ -1,0 +1,16 @@
+{
+    "name": "group/blog-tp",
+    "authors": [
+        {
+            "name": "Alan",
+            "email": "pro@neutronstars.fr"
+        },
+        {
+            "name": "Irina",
+            "email": "irinalaporte@gmail.com"
+        }
+    ],
+    "require": {
+        "gregwar/image": "^2.0"
+    }
+}

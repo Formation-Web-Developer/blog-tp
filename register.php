@@ -1,5 +1,7 @@
-
 <?php
+require 'vendor/autoload.php';
+use Gregwar\Image\Image;
+
 session_start();
 
 if(!empty($_SESSION['id'])) {
@@ -26,11 +28,11 @@ if(!empty($_POST['submitted'])){
     $errors = checkPass($errors, $password, $confirmPass, 'passdiff');
 
     if(!empty($_FILES['avatar'])){
-         
+
         $type = $_FILES['avatar']['type'];
         $size = $_FILES['avatar']['size'];
         $pixelSize = getimagesize($_FILES['avatar']['tmp_name']);
-    
+
         if(!(strstr($type, 'jpg') || strstr($type, 'jpeg'))){
             $errors['avatar'] = 'Cette image n\'est pas une image jpg';
         }
@@ -65,6 +67,13 @@ if(!empty($_POST['submitted'])){
     if($avatar !== null){
         move_uploaded_file($avatar,'assets/uploads/avatars/'.$id.'.jpg');
         $avatar = 'assets/uploads/avatars/'.$id.'.jpg';
+
+        $image = Image::open($avatar);
+        $image->resize(64, 64)
+              ->save('assets/uploads/avatars/'.$id.'-64x64.jpg');
+        $image->resize(32, 32)
+              ->save('assets/uploads/avatars/'.$id.'-32x32.jpg');
+
         $sql = 'update users set avatar = :avatar where id = :id';
         $query = $pdo ->prepare($sql);
         $query -> bindValue(':avatar', $avatar);
@@ -72,7 +81,7 @@ if(!empty($_POST['submitted'])){
         $query->execute();
     }
     $success = true;
-    
+
     }
 
 }
@@ -83,7 +92,7 @@ include('inc/header.php');?>
 <?php if($success){ ?>
 <p class="success">Vos données sont envoyées avec success</p>
 <?php }else { ?>
-<h2>Veuillez vous inscrir</h2>
+<h2>Veuillez vous inscrire</h2>
 <form action="" method="POST" enctype="multipart/form-data">
 
     <label for="avatar">Votre avatar</label>
