@@ -39,8 +39,8 @@ if(!empty($_POST['submitted'])){
         if($size > 1000000){
             $errors['avatar'] = 'Cette image est trop grande (<1Mo) ';
         }
-        if($pixelSize[0] > 128 || $pixelSize[1] > 128 ){
-            $errors['avatar'] = 'Cette image est trop grande (128x128 max) ';
+        if($pixelSize[0] > 512 || $pixelSize[1] > 512 ){
+            $errors['avatar'] = 'Cette image est trop grande (512x512 max) ';
         }
         $avatar = $_FILES['avatar']['tmp_name'];
     }

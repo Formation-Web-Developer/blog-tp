@@ -62,4 +62,9 @@ function passwordHash(string $password): string
         'cost' => 12
     ]);
 }
-
+function getUserById(PDO $pdo, int $id) {
+    $query = $pdo->prepare('SELECT * FROM users WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query ->fetch();
+}
