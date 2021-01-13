@@ -23,7 +23,7 @@ if(!empty($_FILES['avatar'])){
     if($size > 1000000){
         $errors['avatar'] = 'Cette image est trop grande (<1Mo) ';
     }
-    if($pixelSize[0] > 128 || $pixelSize[1] > 128 ){
+    if($pixelSize[0] > 512 || $pixelSize[1] > 512 ){
         $errors['avatar'] = 'Cette image est trop grande (128x128 max) ';
     }
     $avatar = $_FILES['avatar']['tmp_name'];
@@ -37,11 +37,13 @@ if(!empty($_FILES['avatar'])){
             $avatar = 'assets/uploads/avatars/'.$id.'.jpg';
 
             $image = Image::open($avatar);
+            $image->resize(256, 256)
+              ->save('assets/uploads/avatars/'.$id.'-256x256.jpg');
+            $image->resize(128, 128)
+              ->save('assets/uploads/avatars/'.$id.'-128x128.jpg');
             $image->resize(64, 64)
               ->save('assets/uploads/avatars/'.$id.'-64x64.jpg');
-            $image->resize(32, 32)
-              ->save('assets/uploads/avatars/'.$id.'-32x32.jpg');
-
+            
             $sql = 'update users set avatar = :avatar where id = :id';
             $query = $pdo ->prepare($sql);
             $query -> bindValue(':avatar', $avatar);

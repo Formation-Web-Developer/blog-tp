@@ -69,11 +69,13 @@ if(!empty($_POST['submitted'])){
         $avatar = 'assets/uploads/avatars/'.$id.'.jpg';
 
         $image = Image::open($avatar);
+        $image->resize(256, 256)
+              ->save('assets/uploads/avatars/'.$id.'-256x256.jpg');
+            $image->resize(128, 128)
+              ->save('assets/uploads/avatars/'.$id.'-128x128.jpg');
         $image->resize(64, 64)
               ->save('assets/uploads/avatars/'.$id.'-64x64.jpg');
-        $image->resize(32, 32)
-              ->save('assets/uploads/avatars/'.$id.'-32x32.jpg');
-
+        
         $sql = 'update users set avatar = :avatar where id = :id';
         $query = $pdo ->prepare($sql);
         $query -> bindValue(':avatar', $avatar);
