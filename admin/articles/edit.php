@@ -1,11 +1,15 @@
 <?php
-    if(empty($_GET['id']) || !is_numeric($_GET['id']))
+    session_start();
+
+    require '../inc/functions.php';
+    require '../../inc/roles.php';
+
+    if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR))
     {
         header('Location: ../');
         exit;
     }
 
-    require '../inc/functions.php';
     require '../../inc/database.php';
 
     $article = getArticleById($pdo, intval($_GET['id']));
@@ -25,13 +29,11 @@
     if(!empty($_POST['submitted']))
     {
         $title = secureTextByArray($_POST, 'title');
-        $author = secureTextByArray($_POST, 'author');
         $description = secureTextByArray($_POST, 'description');
         $content = secureTextByArray($_POST, 'content');
         $visibility = secureTextByArray($_POST, 'visibility');
 
         checkLengthTextValid($title, 5, 255, $errors, 'title');
-        checkLengthTextValid($author, 4, 50, $errors, 'author');
         checkLengthTextValid($description, 10, 255, $errors, 'description');
         checkLengthTextValid($content, 10, 99999999999, $errors, 'content');
 
@@ -39,7 +41,7 @@
 
         if(empty($errors))
         {
-            $edit = editArticle($pdo, $article['id'], $author, $title, $description, $content, $visibility, $article['published_at'] == null && $visibility == 1);
+            $edit = editArticle($pdo, $article['id'], $title, $description, $content, $visibility, $article['published_at'] == null && $visibility == 1);
         }
     }
 
@@ -61,7 +63,6 @@
             <form action="" method="post">
                 <?php
                     buildInput(getValueByArray($_POST, 'title', $article['title']), 'Titre *', 'text', 'title', $errors);
-                    buildInput(getValueByArray($_POST, 'author', $article['author']), 'Auteur *', 'text', 'author', $errors);
                     buildInput(getValueByArray($_POST, 'description', $article['description']), 'Description *', 'text', 'description', $errors);
                     buildTextArea(getValueByArray($_POST, 'content', $article['content']), 'Contenu *', 'content', 10, $errors);
 

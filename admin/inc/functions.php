@@ -1,5 +1,6 @@
 <?php
 
+
 function debug(array $array)
 {
     echo '<pre>';
@@ -14,11 +15,11 @@ function getArticles(PDO $pdo)
     return $query->fetchAll();
 }
 
-function newArticle(PDO $pdo, string $author, string $title, string $description, string $content)
+function newArticle(PDO $pdo, int $author, string $title, string $description, string $content)
 {
     $query = $pdo -> prepare('INSERT INTO articles (title,author,description,content,created_at) VALUES (:title, :author, :description, :content, NOW())');
     $query->bindValue(':title', $title);
-    $query->bindValue(':author', $author);
+    $query->bindValue(':author', $author, PDO::PARAM_INT);
     $query->bindValue(':description', $description);
     $query->bindValue(':content', $content);
     $query->execute();
@@ -39,15 +40,14 @@ function getArticleById(PDO  $pdo, int $id): array
     return $query->fetch();
 }
 
-function editArticle(PDO $pdo, int $id, string $author, string $title, string $description, string $content, int $visibility, bool $published): bool
+function editArticle(PDO $pdo, int $id, string $title, string $description, string $content, int $visibility, bool $published): bool
 {
-    $sql = 'UPDATE articles SET title=:title,author=:author,description=:description,content=:content,visibility=:visibility,modified_at=NOW()';
+    $sql = 'UPDATE articles SET title=:title,description=:description,content=:content,visibility=:visibility,modified_at=NOW()';
     if($published) {
         $sql.=',published_at=NOW()';
     }
     $query = $pdo->prepare($sql.' WHERE id=:id');
     $query->bindValue(':title', $title);
-    $query->bindValue(':author', $author);
     $query->bindValue(':description', $description);
     $query->bindValue(':content', $content);
     $query->bindValue(':visibility', $visibility, PDO::PARAM_INT);
@@ -187,7 +187,6 @@ function generateToken(int $range): string{
 
 function getUser(PDO $pdo, string $email, string $password)
 {
-    echo $password;
     $query = $pdo->prepare('SELECT * FROM users WHERE email=:email');
     $query->bindValue(':email', $email);
     $query->execute();
@@ -198,9 +197,16 @@ function getUser(PDO $pdo, string $email, string $password)
     return $user;
 }
 
+function getUserById(PDO $pdo, int $id) {
+    $query = $pdo->prepare('SELECT * FROM users WHERE id=:id');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query ->fetch();
+}
+
 function isConnected(): bool
 {
-    return !empty($_SESSION['id']);
+    return isset($_SESSION['id']);
 }
 
 function passwordVerify($password, $hash): bool

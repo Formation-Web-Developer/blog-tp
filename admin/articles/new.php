@@ -1,21 +1,25 @@
 <?php
+    session_start();
 
     require '../inc/functions.php';
+    require '../../inc/roles.php';
 
-    $urlBase = '../';
-    include '../inc/header.php';
+    if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR))
+    {
+        header('Location: ../');
+        exit;
+    }
 
     $errors = [];
 
     if(!empty($_POST['submitted']))
     {
         $title = secureTextByArray($_POST, 'title');
-        $author = secureTextByArray($_POST, 'author');
+        $author = $_SESSION['id'];
         $description = secureTextByArray($_POST, 'description');
         $content = secureTextByArray($_POST, 'content');
 
         checkLengthTextValid($title, 5, 255, $errors, 'title');
-        checkLengthTextValid($author, 4, 50, $errors, 'author');
         checkLengthTextValid($description, 10, 255, $errors, 'description');
         checkLengthTextValid($content, 10, 99999999999, $errors, 'content');
 
@@ -28,6 +32,8 @@
         }
     }
 
+    $urlBase = '../';
+    include '../inc/header.php';
 ?>
     <div class="container">
         <section id="newArticle">
@@ -35,7 +41,6 @@
             <form action="" method="post">
                 <?php
                     buildInputByArray($_POST, 'Titre *', 'text', 'title', $errors);
-                    buildInputByArray($_POST, 'Auteur *', 'text', 'author', $errors);
                     buildInputByArray($_POST, 'Description *', 'text', 'description', $errors);
                     buildTextAreaByArray($_POST, 'Contenu *', 'content', 10, $errors);
                 ?>

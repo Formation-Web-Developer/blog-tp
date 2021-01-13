@@ -6,6 +6,8 @@ require 'inc/functions.php';
 require '../inc/roles.php';
 
 if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR, MODERATOR)){
+    var_dump(isConnected());
+    die();
     header('Location: ../login.php');
     exit;
 }
@@ -38,12 +40,13 @@ include('inc/header.php');
                 <a href="articles/new.php" class="btn btn-success add">Ajouter un article</a>
                 <div class="articles">
                     <?php foreach ($articles as $article) :
+                        $user = getUserById($pdo, $article['author']);
                         $published = $article['visibility'] == 1; ?>
                         <div class="article">
                             <div class="article-header">
                                 <h3><?=$article['title']?></h3>
                                 <p class="description"><?=$article['description']?></p>
-                                <p class="misc">De <span class="misc-author"><?=$article['author']?></span> le <?=date("d/M/Y à H:i", strtotime($published ? $article['published_at'] : $article['created_at']))?></p>
+                                <p class="misc">De <span class="misc-author"><?=$user != null ? $user['pseudo'] : 'Not defined'?></span> le <?=date("d/M/Y à H:i", strtotime($published ? $article['published_at'] : $article['created_at']))?></p>
                             </div>
 
                             <div class="article-footer">
