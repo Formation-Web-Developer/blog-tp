@@ -19,3 +19,5 @@ vendor/
 composer.phar
 
 inc/database.php
+
+assets/uploads/avatars/

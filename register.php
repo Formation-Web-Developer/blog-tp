@@ -17,6 +17,7 @@ if(!empty($_POST['submitted'])){
     $email = trim(strip_tags($_POST['email']));
     $password = trim(strip_tags($_POST['password']));
     $confirmPass = trim(strip_tags($_POST['confirm_password']));
+    $avatar = null;
 
     //validation de chacun des champs
     $errors = mistake($pseudo, 2, 50, 'pseudo', $errors);
@@ -24,8 +25,28 @@ if(!empty($_POST['submitted'])){
     $errors = mistake($email, 3, 255, 'email', $errors);
     $errors = checkPass($errors, $password, $confirmPass, 'passdiff');
 
+    if(!empty($_FILES['avatar'])){
+         
+        $type = $_FILES['avatar']['type'];
+        $size = $_FILES['avatar']['size'];
+        $pixelSize = getimagesize($_FILES['avatar']['tmp_name']);
+    
+        if(!(strstr($type, 'jpg') || strstr($type, 'jpeg'))){
+            $errors['avatar'] = 'Cette image n\'est pas une image jpg';
+        }
+        if($size > 1000000){
+            $errors['avatar'] = 'Cette image est trop grande (<1Mo) ';
+        }
+        if($pixelSize[0] > 128 || $pixelSize[1] > 128 ){
+            $errors['avatar'] = 'Cette image est trop grande (128x128 max) ';
+        }
+        $avatar = $_FILES['avatar']['tmp_name'];
+    }
+
         //si pas d'erreur
     if(count($errors)==0) {
+
+
 
     //$id = $_GET['id'];
     $sql = "INSERT INTO users (pseudo, email, password, token_verified, created_at) VALUES (:pseudo, :email, :password, :token_verified ,NOW())";
@@ -39,6 +60,17 @@ if(!empty($_POST['submitted'])){
     $query->bindValue(':token_verified', $token, PDO::PARAM_STR);
 
     $query->execute();
+    $id = $pdo-> lastInsertId();
+
+    if($avatar !== null){
+        move_uploaded_file($avatar,'assets/uploads/avatars/'.$id.'.jpg');
+        $avatar = 'assets/uploads/avatars/'.$id.'.jpg';
+        $sql = 'update users set avatar = :avatar where id = :id';
+        $query = $pdo ->prepare($sql);
+        $query -> bindValue(':avatar', $avatar);
+        $query -> bindValue(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+    }
     $success = true;
     
     }
@@ -52,7 +84,11 @@ include('inc/header.php');?>
 <p class="success">Vos données sont envoyées avec success</p>
 <?php }else { ?>
 <h2>Veuillez vous inscrir</h2>
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
+
+    <label for="avatar">Votre avatar</label>
+    <input class="noms" type="file" id="avatar" name="avatar" >
+    <span class="error"><?php if(!empty($errors['avatar'])){echo $errors['avatar'];}?></span>
 
     <label for="pseudo">Pseudo</label>
     <input class="noms" type="text" id="pseudo" name="pseudo" value="<?php if(!empty($_POST['pseudo'])) {echo $_POST['pseudo'];} ?>">
