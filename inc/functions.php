@@ -56,3 +56,10 @@ function getUser(PDO $pdo, string $email, string $password)
     return $query->fetch();
 }
 
+function passwordHash(string $password): string
+{
+    return password_hash($password, PASSWORD_ARGON2I, [
+        'cost' => 12
+    ]);
+}
+

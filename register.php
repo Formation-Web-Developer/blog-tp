@@ -48,7 +48,7 @@ if(!empty($_POST['submitted'])){
         //si pas d'erreur
     if(count($errors)==0) {
 
-
+        $password = passwordHash($password);
 
     //$id = $_GET['id'];
     $sql = "INSERT INTO users (pseudo, email, password, token_verified, created_at) VALUES (:pseudo, :email, :password, :token_verified ,NOW())";
@@ -75,7 +75,7 @@ if(!empty($_POST['submitted'])){
               ->save('assets/uploads/avatars/'.$id.'-128x128.jpg');
         $image->resize(64, 64)
               ->save('assets/uploads/avatars/'.$id.'-64x64.jpg');
-        
+
         $sql = 'update users set avatar = :avatar where id = :id';
         $query = $pdo ->prepare($sql);
         $query -> bindValue(':avatar', $avatar);

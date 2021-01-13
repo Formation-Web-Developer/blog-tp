@@ -187,14 +187,23 @@ function generateToken(int $range): string{
 
 function getUser(PDO $pdo, string $email, string $password)
 {
-    $query = $pdo->prepare('SELECT * FROM users WHERE email=:email AND password=:password');
+    echo $password;
+    $query = $pdo->prepare('SELECT * FROM users WHERE email=:email');
     $query->bindValue(':email', $email);
-    $query->bindValue(':password', $password);
     $query->execute();
-    return $query->fetch();
+    $user = $query ->fetch();
+    if($user != null && !password_verify($password, $user['password'])) {
+        $user = null;
+    }
+    return $user;
 }
 
 function isConnected(): bool
 {
     return !empty($_SESSION['id']);
+}
+
+function passwordVerify($password, $hash): bool
+{
+    return password_verify($password, $hash);
 }
