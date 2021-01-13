@@ -168,3 +168,8 @@ form{
 .form-group{
     margin-top: 1rem;
 }
+.user img{
+    display: inline-block;
+    padding-bottom: 1rem;
+    margin: auto;
+}
