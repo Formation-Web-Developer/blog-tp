@@ -178,6 +178,10 @@ section h2 {
     margin-right: .7rem;
 }
 
+#articles .articles .article .misc-state{
+    white-space: nowrap;
+}
+
 #articles .articles .article .misc-state .publish {
     color: #4444ff;
 }
