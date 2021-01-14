@@ -41,7 +41,19 @@
 
         if(empty($errors))
         {
-            $edit = editArticle($pdo, $article['id'], $title, $description, $content, $visibility, $article['published_at'] == null && $visibility == 1);
+            editArticle($pdo, $article['id'], $title, $description, $content, $visibility, $article['published_at'] == null && $visibility == 1);
+            $info = 'L\'article a bien été modifier !';
+        }
+    }
+
+    if(!empty($_POST['comment']) && !empty($_POST['id']) && is_numeric($_POST['id'])) {
+        if($_POST['comment'] === 'Accepter') {
+            validComment($pdo, intval($_POST['id']));
+            $info = 'Le commentaire a bien été accepté !';
+
+        } elseif ($_POST['comment'] == 'Refuser' || $_POST['comment'] == 'Supprimer') {
+            deleteComment($pdo, intval($_POST['id']));
+            $info = $_POST['comment'] == 'Refuser' ? 'Le commentaire a bien été refusé !' : 'Le commentaire a bien été supprimé !';
         }
     }
 
@@ -52,9 +64,9 @@
     <div class="container">
 
         <?php
-        if( isset($edit) ) { ?>
+        if( isset($info) ) { ?>
             <div class="badge badge-success">
-                L'article a bien été modifier !
+                <?=$info?>
             </div>
         <?php } ?>
 
@@ -71,6 +83,38 @@
                 <input type="submit" name="submitted" value="Modifier">
             </form>
         </section>
+
+        <?php
+            $comments = getCommentsByArticle($pdo, intval($article['id']));
+            if(!empty($comments)) { ?>
+                <section id="comments">
+                    <h2>Commentaires (<?=count($comments)?>)</h2>
+                    <div class="comments">
+                        <?php foreach ($comments as $comment): ?>
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <h3><?=$comment['pseudo']?></h3>
+                                    <p class="description"><?=$comment['content']?></p>
+                                    <p class="misc">Le <?=date("d/M/Y à H:i", strtotime($comment['created_at']))?></p>
+                                </div>
+                                <div class="comment-footer">
+                                    <?php if($comment['state'] == 0) { ?>
+                                        <form action="" method="post">
+                                            <input type="hidden" name="id" value="<?=$comment['id']?>">
+                                            <input type="submit" name="comment" value="Accepter" class="btn btn-primary">
+                                        </form>
+                                    <?php } ?>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="id" value="<?=$comment['id']?>">
+                                        <input type="submit" name="comment" value="<?=$comment['state'] == 0 ? 'Refuser' : 'Supprimer'?>" class="btn btn-danger">
+                                    </form>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
+            <?php }
+        ?>
     </div>
 
 <?php

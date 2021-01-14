@@ -34,7 +34,7 @@ function deleteArticle(PDO $pdo, int $id): bool
 
 function getArticleById(PDO  $pdo, int $id): array
 {
-    $query = $pdo->prepare('SELECT articles.*, users.pseudo FROM articles INNER JOIN users ON users.id = articles.author WHERE id=:id');
+    $query = $pdo->prepare('SELECT articles.*, users.pseudo FROM articles INNER JOIN users ON users.id = articles.author WHERE articles.id=:id');
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
     return $query->fetch();
@@ -233,4 +233,12 @@ function deleteComment(PDO $pdo, int $id)
     $query = $pdo->prepare('DELETE FROM comments WHERE id=:id');
     $query->bindValue(':id', $id, PDO::PARAM_INT);
     $query->execute();
+}
+
+function getCommentsByArticle(PDO $pdo, int $id): array
+{
+    $query = $pdo->prepare('SELECT comments.*, users.pseudo FROM comments INNER JOIN users ON users.id=comments.user WHERE comments.article=:id ORDER BY comments.created_at DESC');
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetchAll();
 }
