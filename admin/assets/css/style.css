@@ -115,7 +115,7 @@ header.header .title a{
 }
 
 
-#articles, #comments {
+#articles, #comments, #users {
     padding: .7rem;
 }
 
@@ -125,7 +125,8 @@ section h2 {
 }
 
 #articles .articles .article,
-#comments .comments .comment{
+#comments .comments .comment,
+#users .users .user{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -171,8 +172,9 @@ section h2 {
 
 #articles .articles .article .article-footer p:not(:last-child),
 #articles .articles .article .article-footer a:not(:last-child),
-
-#comments .comments .comment .comment-footer form:not(:last-child) input{
+#comments .comments .comment .comment-footer form:not(:last-child) input,
+#users .users .user form .form-group label,
+#users .users .user form .form-group select{
     margin-right: .7rem;
 }
 
@@ -192,6 +194,12 @@ section h2 {
 #editArticle select:not(:last-child)
 {
     margin-bottom: .7rem;
+}
+
+#users .users .user form,
+#users .users .user form .form-group {
+    display: flex;
+    align-items: center;
 }
 
 @media (min-width: 576px) {

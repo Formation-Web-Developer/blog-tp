@@ -11,6 +11,15 @@ function hasRole(array $user, string... $roles): bool
     return in_array(getRoleByUser($user), $roles);
 }
 
+function getRoles(): array
+{
+    return [
+        MEMBER => MEMBER,
+        MODERATOR => MODERATOR,
+        ADMINISTRATOR => ADMINISTRATOR
+    ];
+}
+
 function getRoleByUser(array $user): string
 {
     return !empty($user['role']) ? getRoleByValue($user['role']) : DEFAULT_ROLE;

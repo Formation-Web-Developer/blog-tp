@@ -242,3 +242,18 @@ function getCommentsByArticle(PDO $pdo, int $id): array
     $query->execute();
     return $query->fetchAll();
 }
+
+function getUsers(PDO $pdo): array
+{
+    $query = $pdo->prepare("SELECT * FROM users ORDER BY role DESC");
+    $query->execute();
+    return $query->fetchAll();
+}
+
+function changeRoleByUser(PDO $pdo, int $id, string $role)
+{
+    $query = $pdo->prepare('UPDATE users SET role=:role WHERE id=:id');
+    $query->bindValue(':role', $role);
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+}

@@ -13,7 +13,7 @@ if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR, MODERATOR)){
 require '../inc/database.php';
 
 
-if(!empty($_POST['deleted']) && !empty($_POST['id']) && is_numeric($_POST['id']))
+if(!empty($_POST['deleted']) && !empty($_POST['id']) && is_numeric($_POST['id']) && hasRole($_SESSION, ADMINISTRATOR))
 {
     deleteArticle($pdo, intval($_POST['id']));
     $info = 'L\'article a bien été supprimé !';
@@ -28,6 +28,12 @@ if(!empty($_POST['comment']) && !empty($_POST['id']) && is_numeric($_POST['id'])
         deleteComment($pdo, intval($_POST['id']));
         $info = 'Le commentaire a bien été refusé !';
     }
+}
+
+if(!empty($_POST['role_modify']) && !empty($_POST['id']) && is_numeric($_POST['id']) && hasRole($_SESSION, ADMINISTRATOR))
+{
+    changeRoleByUser($pdo, intval($_POST['id']), getRoleByValue($_POST['role']));
+    $info = 'Le role a bien été modifier';
 }
 
 $comments = getWaitingComments($pdo);
@@ -101,6 +107,29 @@ include('inc/header.php');
                 </div>
             </section>
         <?php } ?>
+
+        <section id="users">
+            <h2>Liste des utilisateurs</h2>
+            <?php $users = getUsers($pdo); ?>
+            <div class="users">
+                <?php foreach ($users as $user): ?>
+                    <div class="user">
+                        <h3><?=$user['pseudo']?></h3>
+                        <?php if(hasRole($_SESSION, ADMINISTRATOR)) { ?>
+                            <form action="" method="post">
+                                <input type="hidden" name="id" value="<?=$user['id']?>">
+                                <?php
+                                    buildSelect('Role', 'role', getRoles(), getValueByArray($_POST, 'role', getRoleByUser($user)), []);
+                                ?>
+                                <input class="btn btn-primary" type="submit" name="role_modify" value="Modifier">
+                            </form>
+                        <?php } else { ?>
+                            <p><?=getRoleByUser($user)?></p>
+                        <?php } ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </section>
     </div>
 <?php
 
