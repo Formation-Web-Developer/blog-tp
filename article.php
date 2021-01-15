@@ -37,8 +37,16 @@ if(empty($article)){
             </form>
         </div>
         <?php
-        $comments = getCommentsByArticle($pdo, $article['id']);
-
+        $comments = getCommentsByArticle($pdo, $article['id'], isConnected()? $_SESSION['id']: -1, isConnected() && hasRole($_SESSION, MODERATOR, ADMINISTRATOR));
+        foreach($comments as $comment){
+            ?>
+            <div class="comment">
+                <h3>Auteur: <?=$comment['pseudo'];?></h3>
+                <p><?=$comment['content']  ?></p>
+                <p><?=date("Y/m/d à H:i", strtotime($comment['created_at'])); ?></p>
+        
+            </div>
+        <?php }
 
         ?>
 

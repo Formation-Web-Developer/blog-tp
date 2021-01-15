@@ -69,11 +69,15 @@ function getUserById(PDO $pdo, int $id) {
     return $query ->fetch();
 }
 
-function getCommentsByArticle($pdo, $article)
+function getCommentsByArticle($pdo, $article, $user, $isModerator)
 {
-$sql = 'SELECT comments.*, users.pseudo FROM comments INNER JOIN users ON users.id=comments.user WHERE state=1';
+$closeWhere = $isModerator ? '':  '(state=1 OR comments.user=:user)';
+$sql = 'SELECT comments.*, users.pseudo FROM comments INNER JOIN users ON users.id=comments.user WHERE article = :article and '.$closeWhere;
 $query = $pdo ->prepare($sql);
 $query->bindValue(':article', $article, PDO::PARAM_INT);
+if(!$isModerator){
+    $query->bindValue(':user', $user, PDO::PARAM_INT);
+}
 $query->execute();
 return $query ->fetchAll();
 }
