@@ -27,10 +27,7 @@ if(!empty($_POST['submitted'])){
     $errors = mistake($email, 3, 255, 'email', $errors);
     $errors = checkPass($errors, $password, $confirmPass, 'passdiff');
 
-
-
-    if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])){
-
+    /*if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])){
         $type = $_FILES['avatar']['type'];
         $size = $_FILES['avatar']['size'];
         $pixelSize = getimagesize($_FILES['avatar']['tmp_name']);
@@ -45,6 +42,10 @@ if(!empty($_POST['submitted'])){
             $errors['avatar'] = 'Cette image est trop grande (512x512 max) ';
         }
         $avatar = $_FILES['avatar']['tmp_name'];
+    }*/
+
+    if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])) {
+        $errors = uploadValid($errors, 'avatar', $_FILES['avatar'], 1000000, ['.jpg', '.jpeg'], ['image/jpeg','image/jpg']);
     }
 
     //si pas d'erreur
@@ -73,7 +74,7 @@ if(!empty($_POST['submitted'])){
         //$id = $_GET['id'];
         $sql = "INSERT INTO users (pseudo, email, password, token, role, created_at) VALUES (:pseudo, :email, :password, :token, :role, NOW())";
         $query = $pdo->prepare($sql);
-        
+
 
         $token = createToken(20);
 
