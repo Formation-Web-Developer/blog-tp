@@ -83,7 +83,7 @@ if(!empty($_POST['submitted'])){
         $query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
         $query->bindValue(':email', $email, PDO::PARAM_STR);
         $query->bindValue(':password', $password, PDO::PARAM_STR);
-        $query->bindValue(':role', $count === 0 ? ADMINISTRATOR : MEMBER);
+        $query->bindValue(':role', $count == 0 ? ADMINISTRATOR : MEMBER);
         $query->bindValue(':token', $token, PDO::PARAM_STR);
 
         $query->execute();

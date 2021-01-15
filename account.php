@@ -7,7 +7,7 @@ if(isConnected()){
     exit;
 }
  if(empty($_GET['id']) || empty($_GET['type']) || empty($_GET['token']) || !is_numeric($_GET['id'])){
-    header('Location: index.php');
+     header('Location: index.php');
     exit;
  }
  if($_GET['type'] !== 'validate'){
@@ -20,7 +20,7 @@ $query = $pdo -> prepare($sql);
 $query -> bindValue(':id', $_GET['id'], PDO::PARAM_INT);
 $query -> bindValue(':token', $_GET['token'], PDO::PARAM_STR);
 $query-> execute();
-if($query-> fetchColumn() !== 1){
+if($query-> fetchColumn() != 1){
     header('Location: index.php');
     exit;
 }
