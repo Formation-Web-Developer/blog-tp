@@ -27,6 +27,8 @@ if(!empty($_POST['submitted'])){
     $errors = mistake($email, 3, 255, 'email', $errors);
     $errors = checkPass($errors, $password, $confirmPass, 'passdiff');
 
+
+
     if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])){
 
         $type = $_FILES['avatar']['type'];
@@ -46,6 +48,22 @@ if(!empty($_POST['submitted'])){
     }
 
     //si pas d'erreur
+    if(empty($errors)){
+        $sql = 'SELECT COUNT(*) FROM users WHERE email = :email';
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':email', $email, PDO::PARAM_STR);
+        $query->execute();
+        if($query -> fetchColumn() > 0){
+            $errors['email'] = 'Cet email existe déjà!';
+        }
+        $sql = 'SELECT COUNT(*) FROM users WHERE pseudo = :pseudo';
+        $query = $pdo->prepare($sql);
+        $query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
+        $query->execute();
+        if($query -> fetchColumn() > 0){
+            $errors['pseudo'] = 'Ce pseudo existe déjà!';
+        }
+    }
     if(count($errors)==0) {
 
         $count = $pdo->query('SELECT COUNT(*) FROM users')->fetchColumn();
@@ -55,6 +73,7 @@ if(!empty($_POST['submitted'])){
         //$id = $_GET['id'];
         $sql = "INSERT INTO users (pseudo, email, password, token, role, created_at) VALUES (:pseudo, :email, :password, :token, :role, NOW())";
         $query = $pdo->prepare($sql);
+        
 
         $token = createToken(20);
 
