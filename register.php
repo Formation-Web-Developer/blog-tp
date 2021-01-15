@@ -27,7 +27,7 @@ if(!empty($_POST['submitted'])){
     $errors = mistake($email, 3, 255, 'email', $errors);
     $errors = checkPass($errors, $password, $confirmPass, 'passdiff');
 
-    if(!empty($_FILES['avatar'])){
+    if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])){
 
         $type = $_FILES['avatar']['type'];
         $size = $_FILES['avatar']['size'];
@@ -45,44 +45,47 @@ if(!empty($_POST['submitted'])){
         $avatar = $_FILES['avatar']['tmp_name'];
     }
 
-        //si pas d'erreur
+    //si pas d'erreur
     if(count($errors)==0) {
+
+        $count = $pdo->query('SELECT COUNT(*) FROM users')->fetchColumn();
 
         $password = passwordHash($password);
 
-    //$id = $_GET['id'];
-    $sql = "INSERT INTO users (pseudo, email, password, token, created_at) VALUES (:pseudo, :email, :password, :token ,NOW())";
-    $query = $pdo->prepare($sql);
+        //$id = $_GET['id'];
+        $sql = "INSERT INTO users (pseudo, email, password, token, role, created_at) VALUES (:pseudo, :email, :password, :token, :role, NOW())";
+        $query = $pdo->prepare($sql);
 
-    $token = createToken(20);
+        $token = createToken(20);
 
-    $query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
-    $query->bindValue(':email', $email, PDO::PARAM_STR);
-    $query->bindValue(':password', $password, PDO::PARAM_STR);
-    $query->bindValue(':token', $token, PDO::PARAM_STR);
+        $query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
+        $query->bindValue(':email', $email, PDO::PARAM_STR);
+        $query->bindValue(':password', $password, PDO::PARAM_STR);
+        $query->bindValue(':role', $count === 0 ? ADMINISTRATOR : MEMBER);
+        $query->bindValue(':token', $token, PDO::PARAM_STR);
 
-    $query->execute();
-    $id = $pdo-> lastInsertId();
-
-    if($avatar !== null){
-        move_uploaded_file($avatar,'assets/uploads/avatars/'.$id.'.jpg');
-        $avatar = 'assets/uploads/avatars/'.$id.'.jpg';
-
-        $image = Image::open($avatar);
-        $image->resize(256, 256)
-              ->save('assets/uploads/avatars/'.$id.'-256x256.jpg');
-            $image->resize(128, 128)
-              ->save('assets/uploads/avatars/'.$id.'-128x128.jpg');
-        $image->resize(64, 64)
-              ->save('assets/uploads/avatars/'.$id.'-64x64.jpg');
-
-        $sql = 'update users set avatar = :avatar where id = :id';
-        $query = $pdo ->prepare($sql);
-        $query -> bindValue(':avatar', $avatar);
-        $query -> bindValue(':id', $id, PDO::PARAM_INT);
         $query->execute();
-    }
-    $success = true;
+        $id = $pdo-> lastInsertId();
+
+        if($avatar !== null){
+            move_uploaded_file($avatar,'assets/uploads/avatars/'.$id.'.jpg');
+            $avatar = 'assets/uploads/avatars/'.$id.'.jpg';
+
+            $image = Image::open($avatar);
+            $image->resize(256, 256)
+                  ->save('assets/uploads/avatars/'.$id.'-256x256.jpg');
+                $image->resize(128, 128)
+                  ->save('assets/uploads/avatars/'.$id.'-128x128.jpg');
+            $image->resize(64, 64)
+                  ->save('assets/uploads/avatars/'.$id.'-64x64.jpg');
+
+            $sql = 'update users set avatar = :avatar where id = :id';
+            $query = $pdo ->prepare($sql);
+            $query -> bindValue(':avatar', $avatar);
+            $query -> bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+        }
+        $success = true;
 
     }
 
