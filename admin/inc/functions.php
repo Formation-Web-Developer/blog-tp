@@ -199,7 +199,7 @@ function getUser(PDO $pdo, string $email, string $password)
         else {
             $user = [
                 'identifier' => $user['id'],
-                'username' => $user['username'],
+                'username' => $user['pseudo'],
                 'email' => $user['email'],
                 'avatar' => $user['avatar'],
                 'role' => $user['role'],
@@ -273,7 +273,7 @@ function getCommentsByArticle(PDO $pdo, int $id): array
 
 function getUsers(PDO $pdo): array
 {
-    $query = $pdo->prepare("SELECT * FROM users ORDER BY role DESC");
+    $query = $pdo->prepare("SELECT * FROM users ORDER BY role ASC");
     $query->execute();
     return $query->fetchAll();
 }

@@ -1,10 +1,11 @@
 <?php
-    session_start();
 
     require '../inc/functions.php';
     require '../../inc/roles.php';
 
-    if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR))
+    checkConnection();
+
+    if(!isConnected() || !hasRole($_SESSION['user'], ADMINISTRATOR))
     {
         header('Location: ../');
         exit;

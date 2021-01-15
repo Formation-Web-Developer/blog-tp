@@ -30,7 +30,7 @@ if(!empty($_POST['comment']) && !empty($_POST['id']) && is_numeric($_POST['id'])
     }
 }
 
-if(!empty($_POST['role_modify']) && !empty($_POST['id']) && is_numeric($_POST['id']) && hasRole($_SESSION, ADMINISTRATOR))
+if(!empty($_POST['role_modify']) && !empty($_POST['id']) && is_numeric($_POST['id']) && hasRole($_SESSION['user'], ADMINISTRATOR))
 {
     changeRoleByUser($pdo, intval($_POST['id']), getRoleByValue($_POST['role']));
     $info = 'Le role a bien été modifier';
@@ -78,7 +78,7 @@ include('inc/header.php');
             </section>
         <?php }
 
-        if(hasRole($_SESSION, ADMINISTRATOR)) {
+        if(hasRole($_SESSION['user'], ADMINISTRATOR)) {
         $articles = getArticles($pdo); ?>
 
             <section id="articles">
@@ -115,7 +115,7 @@ include('inc/header.php');
                 <?php foreach ($users as $user): ?>
                     <div class="user">
                         <h3><?=$user['pseudo']?></h3>
-                        <?php if(hasRole($_SESSION, ADMINISTRATOR)) { ?>
+                        <?php if(hasRole($_SESSION['user'], ADMINISTRATOR)) { ?>
                             <form action="" method="post">
                                 <input type="hidden" name="id" value="<?=$user['id']?>">
                                 <?php

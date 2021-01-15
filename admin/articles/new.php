@@ -1,10 +1,10 @@
 <?php
-    session_start();
-
     require '../inc/functions.php';
     require '../../inc/roles.php';
 
-    if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR))
+    checkConnection();
+
+    if(!isConnected() || !hasRole($_SESSION['user'], ADMINISTRATOR))
     {
         header('Location: ../');
         exit;
@@ -15,7 +15,7 @@
     if(!empty($_POST['submitted']))
     {
         $title = secureTextByArray($_POST, 'title');
-        $author = $_SESSION['id'];
+        $author = $_SESSION['user']['identifier'];
         $description = secureTextByArray($_POST, 'description');
         $content = secureTextByArray($_POST, 'content');
 
