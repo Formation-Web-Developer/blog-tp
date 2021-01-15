@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `token_verified` varchar(255) DEFAULT NULL,
+  `token` varchar(255) DEFAULT NULL,
   `role` varchar(50) NOT NULL DEFAULT 'MEMBER',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),

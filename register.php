@@ -51,7 +51,7 @@ if(!empty($_POST['submitted'])){
         $password = passwordHash($password);
 
     //$id = $_GET['id'];
-    $sql = "INSERT INTO users (pseudo, email, password, token_verified, created_at) VALUES (:pseudo, :email, :password, :token_verified ,NOW())";
+    $sql = "INSERT INTO users (pseudo, email, password, token, created_at) VALUES (:pseudo, :email, :password, :token ,NOW())";
     $query = $pdo->prepare($sql);
 
     $token = createToken(20);
@@ -59,7 +59,7 @@ if(!empty($_POST['submitted'])){
     $query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
     $query->bindValue(':email', $email, PDO::PARAM_STR);
     $query->bindValue(':password', $password, PDO::PARAM_STR);
-    $query->bindValue(':token_verified', $token, PDO::PARAM_STR);
+    $query->bindValue(':token', $token, PDO::PARAM_STR);
 
     $query->execute();
     $id = $pdo-> lastInsertId();
