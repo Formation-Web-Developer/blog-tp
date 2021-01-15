@@ -28,15 +28,13 @@ $errors = array();
 if(isConnected() && !empty($_POST['submitted']) && !empty($_POST['comment'])){
     $commentaire = trim(strip_tags($_POST['comment']));
     $errors = mistake($commentaire, 3, 255, 'comment', $errors);
-    if(!empty($errors)){
+    if(empty($errors)){
         $sql = 'INSERT INTO comments (article, user, content, created_at) VALUES (:article, :user, :content, NOW())';
         $query = $pdo->prepare($sql);
         $query->bindValue(':article', $article['id'], PDO::PARAM_INT);
         $query->bindValue(':user', $_SESSION['user']['identifier'], PDO::PARAM_INT);
         $query->bindValue(':content', $commentaire, PDO::PARAM_STR);
         $query->execute();
-        
-
     }
 }
 ?>
