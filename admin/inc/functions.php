@@ -188,18 +188,26 @@ function buildButtonPage($url, $index, $selected) { ?>
     <a href="<?=$url?>"<?=$selected ? 'class="active"' : ''?>><?=$index?></a>
 <?php }
 
-function generateToken(int $range): string{
-    return OAuthProvider::generateToken($range);
-}
-
 function getUser(PDO $pdo, string $email, string $password)
 {
     $query = $pdo->prepare('SELECT * FROM users WHERE email=:email');
     $query->bindValue(':email', $email);
     $query->execute();
     $user = $query ->fetch();
-    if($user != null && !password_verify($password, $user['password'])) {
-        $user = null;
+    if($user != null) {
+        if(!password_verify($password, $user['password'])){ $user = null; }
+        else {
+            $user = [
+                'identifier' => $user['id'],
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'avatar' => $user['avatar'],
+                'role' => $user['role'],
+                'created_at' => strtotime($user['created_at']),
+                'ip' => $_SERVER['REMOTE_ADDR'],
+                'last_connection' => time()
+            ];
+        }
     }
     return $user;
 }
@@ -211,9 +219,29 @@ function getUserById(PDO $pdo, int $id) {
     return $query ->fetch();
 }
 
+function checkConnection()
+{
+    session_start();
+    $connected = isset(
+            $_SESSION['user']['identifier'],
+            $_SESSION['user']['username'],
+            $_SESSION['user']['email'],
+            $_SESSION['user']['avatar'],
+            $_SESSION['user']['role'],
+            $_SESSION['user']['created_at'],
+            $_SESSION['user']['ip'],
+            $_SESSION['user']['last_connection']
+    );
+    if($connected && ((time() - $_SESSION['user']['last_connection']) > 60*60*24) || $_SESSION['user']['ip'] !== $_SERVER['REMOTE_ADDR']) {
+        unset($_SESSION['user']);
+    }elseif($connected) {
+        $_SESSION['user']['last_connection'] = time();
+    }
+}
+
 function isConnected(): bool
 {
-    return isset($_SESSION['id']);
+    return !empty($_SESSION['user']);
 }
 
 function passwordVerify($password, $hash): bool

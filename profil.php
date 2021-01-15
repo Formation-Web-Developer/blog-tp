@@ -1,6 +1,7 @@
 <?php
-session_start();
 require('inc/functions.php');
+checkConnection();
+
 if(!isConnected()) {
     header('Location: index.php');
     exit;

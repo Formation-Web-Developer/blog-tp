@@ -1,10 +1,11 @@
 
 
 <?php
-session_start();
 
 require('inc/functions.php');
 require('inc/database.php');
+
+checkConnection();
 
 include('inc/header.php');
 
@@ -44,7 +45,7 @@ if(empty($article)){
                 <h3>Auteur: <?=$comment['pseudo'];?></h3>
                 <p><?=$comment['content']  ?></p>
                 <p><?=date("Y/m/d à H:i", strtotime($comment['created_at'])); ?></p>
-        
+
             </div>
         <?php }
 

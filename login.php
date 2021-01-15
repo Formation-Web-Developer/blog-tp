@@ -1,7 +1,7 @@
 <?php
-    session_start();
+    checkConnection();
 
-    if(!empty($_SESSION['id'])) {
+    if(isConnected()) {
         header('Location: index.php');
         exit;
     }
@@ -22,7 +22,7 @@
             $user = getUser($pdo, $email, $password);
 
             if($user != null) {
-                $_SESSION = $user;
+                $_SESSION['user'] = $user;
                 header('Location: index.php');
                 exit;
             }

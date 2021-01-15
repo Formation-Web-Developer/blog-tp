@@ -34,8 +34,30 @@ function checkPass($errors, $password, $confirmPass, $key){
     }
     return $errors;
 }
-function isConnected(){
-    return isset($_SESSION['id']);
+
+function checkConnection()
+{
+    session_start();
+    $connected = isset(
+        $_SESSION['user']['identifier'],
+        $_SESSION['user']['username'],
+        $_SESSION['user']['email'],
+        $_SESSION['user']['avatar'],
+        $_SESSION['user']['role'],
+        $_SESSION['user']['created_at'],
+        $_SESSION['user']['ip'],
+        $_SESSION['user']['last_connection']
+    );
+    if($connected && ((time() - $_SESSION['user']['last_connection']) > 60*60*24) || $_SESSION['user']['ip'] !== $_SERVER['REMOTE_ADDR']) {
+        unset($_SESSION['user']);
+    }elseif($connected) {
+        $_SESSION['user']['last_connection'] = time();
+    }
+}
+
+function isConnected()
+{
+    return !empty($_SESSION['user']);
 }
 
 function createToken($range) {
@@ -71,13 +93,13 @@ function getUserById(PDO $pdo, int $id) {
 
 function getCommentsByArticle($pdo, $article, $user, $isModerator)
 {
-$closeWhere = $isModerator ? '':  '(state=1 OR comments.user=:user)';
-$sql = 'SELECT comments.*, users.pseudo FROM comments INNER JOIN users ON users.id=comments.user WHERE article = :article and '.$closeWhere;
-$query = $pdo ->prepare($sql);
-$query->bindValue(':article', $article, PDO::PARAM_INT);
-if(!$isModerator){
-    $query->bindValue(':user', $user, PDO::PARAM_INT);
-}
-$query->execute();
-return $query ->fetchAll();
+    $closeWhere = $isModerator ? '' :  'and ( state=1 OR comments.user=:user )';
+    $sql = 'SELECT comments.*, users.pseudo FROM comments INNER JOIN users ON users.id=comments.user WHERE article = :article '.$closeWhere;
+    $query = $pdo ->prepare($sql);
+    $query->bindValue(':article', $article, PDO::PARAM_INT);
+    if(!$isModerator){
+        $query->bindValue(':user', $user, PDO::PARAM_INT);
+    }
+    $query->execute();
+    return $query ->fetchAll();
 }

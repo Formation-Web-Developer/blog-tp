@@ -2,14 +2,14 @@
 require 'vendor/autoload.php';
 use Gregwar\Image\Image;
 
-session_start();
+require('inc/functions.php');
+checkConnection();
 
-if(!empty($_SESSION['id'])) {
+if(isConnected()) {
     header('Location: index.php');
     exit;
 }
 
-require('inc/functions.php');
 require('inc/database.php');
 $errors = array();
 $success = false;
