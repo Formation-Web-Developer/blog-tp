@@ -33,12 +33,12 @@ if(empty($article)){
         </div>
         <div class="wrap2">
             <form action="" method="POST">
-                <input class="comment" type="text" name="comment">
-                <input type="submit" name="submitted" value="Envoyer le commentaire">
+                <input class="text-comment" type="text" name="comment">
+                <input class="sub-comment" type="submit" name="submitted" value="Envoyer le commentaire">
             </form>
         </div>
         <?php
-        $comments = getCommentsByArticle($pdo, $article['id'], isConnected()? $_SESSION['id']: -1, isConnected() && hasRole($_SESSION, MODERATOR, ADMINISTRATOR));
+        $comments = getCommentsByArticle($pdo, $article['id'], isConnected()? $_SESSION['user']['identifier']: -1, isConnected() && hasRole($_SESSION, MODERATOR, ADMINISTRATOR));
         foreach($comments as $comment){
             ?>
             <div class="comment">

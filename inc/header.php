@@ -13,11 +13,11 @@
         <nav>
         <ul class="ulnav">
             <li><a href="index.php"><img src="https://img.icons8.com/ios-filled/32/000000/leopard.png"/> Accueil</a></li>
-            <?php if(!empty($_SESSION['id'])){
-                if(hasRole($_SESSION, ADMINISTRATOR, MODERATOR)) {?>
+            <?php if(isConnected()){
+                if(hasRole($_SESSION['user'], ADMINISTRATOR, MODERATOR)) {?>
                     <li><a href="admin/"><img src="https://img.icons8.com/ios-glyphs/32/000000/elephant.png"/>Administration</a></li>
                 <?php } ?>
-                <li><a href="profil.php"><img src="https://img.icons8.com/material/32/000000/giraffe.png"/><?=$_SESSION['pseudo']?></a></li>
+                <li><a href="profil.php"><img src="https://img.icons8.com/material/32/000000/giraffe.png"/><?=$_SESSION['user']['username']?></a></li>
                 <li><a href="disconnect.php"><img src="https://img.icons8.com/ios-filled/32/000000/lion.png"/> Se déconnecter</a></li>
             <?php }else{ ?>
                 <li><a href="login.php"><img src="https://img.icons8.com/ios-filled/32/000000/lemur.png"/> Se connecter</a></li>

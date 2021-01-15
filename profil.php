@@ -12,13 +12,13 @@ if(!isConnected()) {
 include('inc/header.php'); ?>
 
 <div class="user">
-<?php if(!empty($_SESSION['avatar'])){ ?>
-    <img src="<?=$_SESSION['avatar'] ?>"/>
+<?php if(!empty($_SESSION['user']['avatar'])){ ?>
+    <img src="<?=$_SESSION['user']['avatar'] ?>"/>
 <?php }else{?>
     <img src="https://img.icons8.com/ios/96/000000/leopard.png"/> <?php } ?>
-<h2><?=$_SESSION['pseudo']?></h2>
-<p><?=$_SESSION['email']?></p>
-<p><?=$_SESSION['role']?></p>
+<h2><?=$_SESSION['user']['username']?></h2>
+<p><?=$_SESSION['user']['email']?></p>
+<p><?=$_SESSION['user']['role']?></p>
 <a href="edit-profil.php">Modifier mon profil</a>
 
 </div>

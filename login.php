@@ -1,4 +1,5 @@
 <?php
+require 'admin/inc/functions.php';
     checkConnection();
 
     if(isConnected()) {
@@ -6,7 +7,7 @@
         exit;
     }
 
-    require 'admin/inc/functions.php';
+    
 
     $errors = [];
     if(!empty($_POST['submitted']))
