@@ -31,9 +31,9 @@ if(empty($article)){
         <p> Déscription: <?= $article['description'].'<br>'.$article['content'];?></p>
         <p class="date">  Publié le: <?= date("Y/m/d à H:i", strtotime($article['published_at']));?></p>
         </div>
-        <div>
+        <div class="wrap2">
             <form action="" method="POST">
-                <input type="text" name="comment">
+                <input class="comment" type="text" name="comment">
                 <input type="submit" name="submitted" value="Envoyer le commentaire">
             </form>
         </div>
