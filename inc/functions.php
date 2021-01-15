@@ -10,7 +10,7 @@ function debug($tableau)
 
 function getAllArticlesByStatus($pdo, $visibility = 1)
 {
-    $sql = "SELECT * FROM articles WHERE visibility = $visibility ORDER BY published_at DESC";
+    $sql = "SELECT articles.*, users.pseudo FROM articles INNER JOIN users on articles.author = users.id WHERE visibility = $visibility ORDER BY published_at DESC";
     $querry = $pdo->prepare($sql);
     $querry->execute();
     return $querry->fetchAll();

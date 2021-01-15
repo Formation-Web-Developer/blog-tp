@@ -10,22 +10,20 @@ $title= 'Accueil - MonBlog.fr';
 $articles = getAllArticlesByStatus($pdo);
 include('inc/header.php'); ?>
 <div id="all">
-<?php foreach($articles as $article) { 
-    $user = getUserById($pdo, $article['author']);
-    ?>
+<?php foreach($articles as $article) { ?>
 
 <div class="wrap">
         <h2> <?= $article['title'];?></h2>
-        
-    <p class="brown">Auteur: <?=$user != null ? $user['pseudo'] : 'Not defined'?></p>        
+
+    <p class="brown">Auteur: <?=!empty($article['pseudo'])? $article['pseudo'] : 'Not defined'?></p>
     <div class="article">
-    <p> Déscription: <?= $article['description'];?></p>             
+    <p> Déscription: <?= $article['description'];?></p>
     <p class="pub"> Publié le: <?= date("Y/m/d", strtotime($article['published_at']));?></p>
 
     </div>
-    
-    <button class="voir"><a href="article.php?id=<?=$article['id']; ?>">Voir plus</a></button>   
-    
+
+    <button class="voir"><a href="article.php?id=<?=$article['id']; ?>">Voir plus</a></button>
+
 
 </div>
 
