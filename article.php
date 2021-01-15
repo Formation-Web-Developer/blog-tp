@@ -47,7 +47,8 @@ if(isConnected() && !empty($_POST['submitted']) && !empty($_POST['comment'])){
         </div>
         <div class="wrap2">
             <form action="" method="POST">
-                <input class="text-comment" type="text" name="comment">
+                <input class="text-comment" type="text" name="comment" value="<?php if(!empty($_POST['comment'])) {echo $_POST['comment'];} ?>">
+                <span class="error"><?php if(!empty($errors['comment'])){echo $errors['comment'];}?></span>
                 <input class="sub-comment" type="submit" name="submitted" value="Envoyer le commentaire">
             </form>
         </div>
