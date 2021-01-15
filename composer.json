@@ -11,6 +11,7 @@
         }
     ],
     "require": {
-        "gregwar/image": "^2.0"
+        "gregwar/image": "^2.0",
+        "phpmailer/phpmailer": "^6.2"
     }
 }
