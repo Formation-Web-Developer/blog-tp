@@ -30,8 +30,21 @@ if(empty($article)){
         <p> Déscription: <?= $article['description'].'<br>'.$article['content'];?></p>      
         <p class="date">  Publié le: <?= date("Y/m/d à H:i", strtotime($article['published_at']));?></p>
         </div>
+        <div>
+            <form action="" method="POST">
+                <input type="text" name="comment">
+                <input type="submit" name="submitted" value="Envoyer le commentaire">
+            </form>
+        </div>
+        <?php 
+        $comments = getCommentsByArticle($pdo, $article['id']);
+
         
-             
+        ?>
+
+        <div>
+            
+        </div>   
                 
 
 </div>

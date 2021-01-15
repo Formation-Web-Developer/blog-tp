@@ -68,3 +68,12 @@ function getUserById(PDO $pdo, int $id) {
     $query->execute();
     return $query ->fetch();
 }
+
+function getCommentsByArticle($pdo, $article)
+{
+$sql = 'select * from comments where article = :article and state = 1';
+$query = $pdo ->prepare($sql);
+$query->bindValue(':article', $article, PDO::PARAM_INT);
+$query->execute();
+return $query ->fetchAll();
+}
