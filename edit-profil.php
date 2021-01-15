@@ -12,9 +12,9 @@ require('inc/database.php');
 $errors = array();
 $success = false;
 
-if(!empty($_FILES['avatar'])){
+if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])){
 
-    $type = $_FILES['avatar']['type'];
+    /* $type = $_FILES['avatar']['type'];
     $size = $_FILES['avatar']['size'];
     $pixelSize = getimagesize($_FILES['avatar']['tmp_name']);
 
@@ -26,7 +26,8 @@ if(!empty($_FILES['avatar'])){
     }
     if($pixelSize[0] > 512 || $pixelSize[1] > 512 ){
         $errors['avatar'] = 'Cette image est trop grande (128x128 max) ';
-    }
+    } */
+    $errors = uploadValid($errors, 'avatar', $_FILES['avatar'], 1000000, ['.jpg', '.jpeg'], ['image/jpeg','image/jpg']);
     $avatar = $_FILES['avatar']['tmp_name'];
 
     if(count($errors)==0) {

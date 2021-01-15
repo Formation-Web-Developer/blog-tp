@@ -46,7 +46,9 @@ if(!empty($_POST['submitted'])){
 
     if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])) {
         $errors = uploadValid($errors, 'avatar', $_FILES['avatar'], 1000000, ['.jpg', '.jpeg'], ['image/jpeg','image/jpg']);
+        $avatar = $_FILES['avatar']['tmp_name'];
     }
+
 
     //si pas d'erreur
     if(empty($errors)){
