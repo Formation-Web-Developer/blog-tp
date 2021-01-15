@@ -14,7 +14,7 @@ if(!empty($_GET['id']) && is_numeric($_GET['id'])){
     die('404');
 }
 
-$sql = "SELECT * FROM articles WHERE id = $id";
+$sql = "SELECT articles.*, users.pseudo FROM articles INNER JOIN users ON users.id=articles.author WHERE articles.id = $id";
 $query = $pdo->prepare($sql);
 $query->execute();
 $article = $query->fetch();
@@ -26,8 +26,8 @@ if(empty($article)){
 <div class="wrap1">
         <div class="content">
         <h2 class="h2-2"> <?= $article['title'];?></h2>
-        <p class="author">Par: <?= $article['author'];?></p>  
-        <p> Déscription: <?= $article['description'].'<br>'.$article['content'];?></p>      
+        <p class="author">Par: <?= $article['pseudo'];?></p>
+        <p> Déscription: <?= $article['description'].'<br>'.$article['content'];?></p>
         <p class="date">  Publié le: <?= date("Y/m/d à H:i", strtotime($article['published_at']));?></p>
         </div>
         <div>
@@ -36,16 +36,16 @@ if(empty($article)){
                 <input type="submit" name="submitted" value="Envoyer le commentaire">
             </form>
         </div>
-        <?php 
+        <?php
         $comments = getCommentsByArticle($pdo, $article['id']);
 
-        
+
         ?>
 
         <div>
-            
-        </div>   
-                
+
+        </div>
+
 
 </div>
     <?php
