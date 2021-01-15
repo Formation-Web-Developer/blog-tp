@@ -109,6 +109,8 @@ if(!empty($_POST['submitted'])){
         }
         $success = true;
 
+        require 'inc/mailer.php';
+        sendMail($email, $pseudo, 'Confirmation du compte', '<p>Pour valider votre compte sur MonBlog.fr <a href="http://localhost/account.php?id='.$id.'&type=validate&token='.$token.'">Cliquez-ici !</a></p>');
     }
 
 }
