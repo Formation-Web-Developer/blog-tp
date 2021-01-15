@@ -71,7 +71,7 @@ function getUserById(PDO $pdo, int $id) {
 
 function getCommentsByArticle($pdo, $article)
 {
-$sql = 'select * from comments where article = :article and state = 1';
+$sql = 'SELECT comments.*, users.pseudo FROM comments INNER JOIN users ON users.id=comments.user WHERE state=1';
 $query = $pdo ->prepare($sql);
 $query->bindValue(':article', $article, PDO::PARAM_INT);
 $query->execute();
