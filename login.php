@@ -6,9 +6,6 @@ require 'admin/inc/functions.php';
         header('Location: index.php');
         exit;
     }
-
-    
-
     $errors = [];
     if(!empty($_POST['submitted']))
     {
@@ -21,14 +18,17 @@ require 'admin/inc/functions.php';
             require 'inc/database.php';
 
             $user = getUser($pdo, $email, $password);
-
-            if($user != null) {
+            if($user !== NULL && !empty($user['invalid_token'])){
+                $error = 'Ce compte n\'a pas été confirmé, veuillez verifier votre adresse mail';   
+            }
+            elseif($user != null) {
                 $_SESSION['user'] = $user;
                 header('Location: index.php');
                 exit;
+            }else{
+                $error = 'Les informations d\'identification ne sont pas valides !';
             }
-
-            $error = 'Les informations d\'identification ne sont pas valides !';
+        
         }
     }
 

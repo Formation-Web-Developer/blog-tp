@@ -125,6 +125,10 @@ footer{
 .wrap2, .container, .user{
     display: grid;
     background-color: rgb(223, 151, 43);
+    /* background-image: url('../img/w630.jpg');
+    background-position: cover;
+    background-repeat: no-repeat; */
+    
     width: auto;
     text-align: center;
     color: aliceblue;
@@ -174,6 +178,22 @@ form{
     margin: auto;
 }
 .text-comment{
-    width: 20rem;
-    height: 3rem;
+    width: 30rem;
+    height: 5rem;
+    background-color: aliceblue;
+    border: none;
+    margin-bottom: 2rem;
+    border-radius: 3%;
+    border: solid 2px  rgb(141, 35, 35);;
+
+}
+.sub-comment{
+    
+    margin: auto;
+    padding: 0.5rem;
+    background-color: rgb(141, 35, 35);
+    color: aliceblue;
+    font-family: 'Big Shoulders Stencil Text', cursive;
+    font-weight: 300;
+    font-size: large;
 }

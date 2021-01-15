@@ -32,7 +32,7 @@ if(!empty($_FILES['avatar']) && !empty($_FILES['avatar']['type'])){
 
     if(count($errors)==0) {
 
-        $id = $_SESSION['id'];
+        $id = $_SESSION['user']['identifier'];
 
         if($avatar !== null){
             move_uploaded_file($avatar,'assets/uploads/avatars/'.$id.'.jpg');

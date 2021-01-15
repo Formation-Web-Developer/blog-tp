@@ -190,11 +190,14 @@ function buildButtonPage($url, $index, $selected) { ?>
 
 function getUser(PDO $pdo, string $email, string $password)
 {
-    $query = $pdo->prepare('SELECT * FROM users WHERE email=:email');
+    $query = $pdo->prepare('SELECT * FROM users WHERE email=:email' );
     $query->bindValue(':email', $email);
     $query->execute();
     $user = $query ->fetch();
     if($user != null) {
+        if($user['token'] !== NULL){
+            return ['invalid_token' => true];
+        }
         if(!password_verify($password, $user['password'])){ $user = null; }
         else {
             $user = [
