@@ -1,11 +1,11 @@
 <?php
 
-session_start();
-
 require 'inc/functions.php';
 require '../inc/roles.php';
 
-if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR, MODERATOR)){
+checkConnection();
+
+if(!isConnected() || !hasRole($_SESSION['user'], ADMINISTRATOR, MODERATOR)){
     header('Location: ../login.php');
     exit;
 }
@@ -13,7 +13,7 @@ if(!isConnected() || !hasRole($_SESSION, ADMINISTRATOR, MODERATOR)){
 require '../inc/database.php';
 
 
-if(!empty($_POST['deleted']) && !empty($_POST['id']) && is_numeric($_POST['id']) && hasRole($_SESSION, ADMINISTRATOR))
+if(!empty($_POST['deleted']) && !empty($_POST['id']) && is_numeric($_POST['id']) && hasRole($_SESSION['user'], ADMINISTRATOR))
 {
     deleteArticle($pdo, intval($_POST['id']));
     $info = 'L\'article a bien été supprimé !';

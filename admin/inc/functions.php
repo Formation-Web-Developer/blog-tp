@@ -232,7 +232,7 @@ function checkConnection()
             $_SESSION['user']['ip'],
             $_SESSION['user']['last_connection']
     );
-    if($connected && ((time() - $_SESSION['user']['last_connection']) > 60*60*24) || $_SESSION['user']['ip'] !== $_SERVER['REMOTE_ADDR']) {
+    if($connected && (((time() - $_SESSION['user']['last_connection']) > 60*60*24) || $_SESSION['user']['ip'] !== $_SERVER['REMOTE_ADDR'])) {
         unset($_SESSION['user']);
     }elseif($connected) {
         $_SESSION['user']['last_connection'] = time();
